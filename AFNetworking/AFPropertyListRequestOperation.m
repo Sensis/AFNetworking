@@ -101,7 +101,7 @@ static dispatch_queue_t property_list_request_operation_processing_queue() {
 #pragma mark - AFHTTPRequestOperation
 
 + (NSSet *)acceptableContentTypes {
-    return [NSSet setWithObjects:@"application/x-plist", nil];
+    return [NSSet setWithObjects:@"application/x-plist", @"text/xml", nil];
 }
 
 + (BOOL)canProcessRequest:(NSURLRequest *)request {
