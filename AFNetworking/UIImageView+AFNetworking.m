@@ -98,6 +98,20 @@ static char kAFImageRequestOperationObjectKey;
                        success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
                        failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure
 {
+	[self setImageWithURLRequest:urlRequest
+				placeholderImage:placeholderImage
+				   imageScale:[[UIScreen mainScreen] scale]
+                          success:success
+						  failure:failure];
+
+}
+
+- (void)setImageWithURLRequest:(NSURLRequest *)urlRequest
+              placeholderImage:(UIImage *)placeholderImage
+				    imageScale:(CGFloat)imageScale
+                       success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
+                       failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure
+{
     [self cancelImageRequestOperation];
     
     UIImage *cachedImage = [[[self class] af_sharedImageCache] cachedImageForRequest:urlRequest];
@@ -112,6 +126,7 @@ static char kAFImageRequestOperationObjectKey;
         self.image = placeholderImage;
         
         AFImageRequestOperation *requestOperation = [[[AFImageRequestOperation alloc] initWithRequest:urlRequest] autorelease];
+		requestOperation.imageScale = imageScale;
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if ([[urlRequest URL] isEqual:[[self.af_imageRequestOperation request] URL]]) {
                 self.image = responseObject;
