@@ -1,6 +1,6 @@
-// AFJSONUtilities.h
+// Post.h
 //
-// Copyright (c) 2011 Gowalla (http://gowalla.com/)
+// Copyright (c) 2012 Mattt Thompson (http://mattt.me/)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,5 +22,17 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSData * AFJSONEncode(id object, NSError **error);
-extern id AFJSONDecode(NSData *data, NSError **error);
+@class User;
+
+@interface Post : NSObject
+
+@property (readonly) NSUInteger postID;
+@property (readonly) NSString *text;
+
+@property (readonly) User *user;
+
+- (id)initWithAttributes:(NSDictionary *)attributes;
+
++ (void)globalTimelinePostsWithBlock:(void (^)(NSArray *posts, NSError *error))block;
+
+@end

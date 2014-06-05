@@ -1,17 +1,17 @@
-// AFTwitterAPIClient.h
+// AFNetworkingTests.m
 //
-// Copyright (c) 2012 Mattt Thompson (http://mattt.me/)
-// 
+// Copyright (c) 2013 AFNetworking (http://afnetworking.com)
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,36 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "AFTwitterAPIClient.h"
+#import "AFNetworkingTests.h"
+#import "AFHTTPRequestOperationLogger.h"
 
-#import "AFJSONRequestOperation.h"
+NSString * const AFNetworkingTestsBaseURLString = @"http://httpbin.org/";
 
-static NSString * const kAFTwitterAPIBaseURLString = @"http://api.twitter.com/1/";
+@implementation AFNetworkingTests
 
-@implementation AFTwitterAPIClient
-
-+ (AFTwitterAPIClient *)sharedClient {
-    static AFTwitterAPIClient *_sharedClient = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedClient = [[AFTwitterAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kAFTwitterAPIBaseURLString]];
-    });
-    
-    return _sharedClient;
-}
-
-- (id)initWithBaseURL:(NSURL *)url {
-    self = [super initWithBaseURL:url];
-    if (!self) {
-        return nil;
++ (void)load {
+    if ([[[[[NSProcessInfo processInfo] environment] valueForKey:@"AFTestsLoggingEnabled"] uppercaseString] isEqualToString:@"YES"]) {
+        [[AFHTTPRequestOperationLogger sharedLogger] startLogging];
     }
-    
-    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-    
-    // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
-	[self setDefaultHeader:@"Accept" value:@"application/json"];
-    
-    return self;
 }
 
 @end

@@ -22,12 +22,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class Tweet;
+@class Post;
 
-@interface TweetTableViewCell : UITableViewCell
+@interface PostTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) Tweet *tweet;
+@property (nonatomic, strong) Post *post;
 
-+ (CGFloat)heightForCellWithTweet:(Tweet *)tweet;
++ (CGFloat)heightForCellWithPost:(Post *)post;
 
 @end
