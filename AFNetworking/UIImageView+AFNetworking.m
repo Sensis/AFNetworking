@@ -137,7 +137,7 @@ static char kAFImageRequestOperationObjectKey;
                 success(operation.request, operation.response, responseObject);
             }
 
-            [[[self class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
+//            [[[self class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
             
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
