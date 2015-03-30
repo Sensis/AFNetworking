@@ -40,8 +40,8 @@ typedef UIBackgroundTaskIdentifier AFBackgroundTaskIdentifier;
 typedef id AFBackgroundTaskIdentifier;
 #endif
 
-static NSUInteger const kAFHTTPMinimumInitialDataCapacity = 1024;
-static NSUInteger const kAFHTTPMaximumInitialDataCapacity = 1024 * 1024 * 8;
+//static NSUInteger const kAFHTTPMinimumInitialDataCapacity = 1024;
+//static NSUInteger const kAFHTTPMaximumInitialDataCapacity = 1024 * 1024 * 8;
 
 static NSString * const kAFNetworkingLockName = @"com.alamofire.networking.operation.lock";
 
@@ -565,7 +565,7 @@ didReceiveResponse:(NSURLResponse *)response
     
     if (self.downloadProgress) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.downloadProgress((long long)[data length], self.totalBytesRead, self.response.expectedContentLength);
+            self.downloadProgress((long)[data length], self.totalBytesRead, self.response.expectedContentLength);
         });
     }
 }
