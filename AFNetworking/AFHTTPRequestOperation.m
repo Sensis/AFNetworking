@@ -153,7 +153,7 @@ static NSString * AFStringFromIndexSet(NSIndexSet *indexSet) {
     if ([self.outputStream propertyForKey:NSStreamFileCurrentOffsetKey]) {
         offset = [[self.outputStream propertyForKey:NSStreamFileCurrentOffsetKey] unsignedLongLongValue];
     } else {
-        offset = [[self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] length];
+        offset = [(NSString *)[self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] length];
     }
 
     NSMutableURLRequest *mutableURLRequest = [[self.request mutableCopy] autorelease];
@@ -278,7 +278,7 @@ didReceiveResponse:(NSURLResponse *)response
         if ([self.outputStream propertyForKey:NSStreamFileCurrentOffsetKey]) {
             [self.outputStream setProperty:[NSNumber numberWithInteger:0] forKey:NSStreamFileCurrentOffsetKey];
         } else {
-            if ([[self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] length] > 0) {
+            if ([(NSString *)[self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] length] > 0) {
                 self.outputStream = [NSOutputStream outputStreamToMemory];
             }
         }

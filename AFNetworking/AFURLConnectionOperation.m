@@ -556,7 +556,7 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)connection:(NSURLConnection *)__unused connection 
     didReceiveData:(NSData *)data
 {
-    self.totalBytesRead += [data length];
+	self.totalBytesRead += (long long)[data length];
     
     if ([self.outputStream hasSpaceAvailable]) {
         const uint8_t *dataBuffer = (uint8_t *) [data bytes];
@@ -565,7 +565,7 @@ didReceiveResponse:(NSURLResponse *)response
     
     if (self.downloadProgress) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.downloadProgress((long)[data length], self.totalBytesRead, self.response.expectedContentLength);
+            self.downloadProgress((NSInteger)[data length], self.totalBytesRead, self.response.expectedContentLength);
         });
     }
 }
