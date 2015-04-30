@@ -95,8 +95,8 @@ static NSString * AFStringFromIndexSet(NSIndexSet *indexSet) {
 @property (readwrite, nonatomic, retain) NSURLRequest *request;
 @property (readwrite, nonatomic, retain) NSHTTPURLResponse *response;
 @property (readwrite, nonatomic, retain) NSError *HTTPError;
-@property (assign) long long totalContentLength;
-@property (assign) long long offsetContentLength;
+@property (assign, nonatomic) long long totalContentLength;
+@property (assign, nonatomic) long long offsetContentLength;
 @end
 
 @implementation AFHTTPRequestOperation
